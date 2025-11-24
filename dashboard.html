@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Police Emergency System</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <!-- Header -->
+      <header class="dashboard-header">
+        <div class="header-left">
+          <h1>🚨 Emergency Dashboard</h1>
+          <div id="userInfo" class="user-info"></div>
+        </div>
+        <div class="header-right">
+          <button id="refreshBtn" class="btn-secondary">🔄 Refresh</button>
+          <button id="logoutBtn" class="btn-logout">🚪 Logout</button>
+        </div>
+      </header>
+
+      <!-- Tabs -->
+      <div class="tabs-container">
+        <div class="tabs">
+          <button class="tab-button active" data-tab="all">
+            All Cases (<span id="allCount">0</span>)
+          </button>
+          <button class="tab-button" data-tab="pending">
+            Pending (<span id="pendingCount">0</span>)
+          </button>
+          <button class="tab-button" data-tab="solved">
+            Solved (<span id="solvedCount">0</span>)
+          </button>
+          <button class="tab-button" data-tab="deviceAlerts">
+            Device Alerts (<span id="deviceAlertsCount">0</span>)
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-icon">🚨</div>
+          <div class="stat-info">
+            <h3 id="totalCases">0</h3>
+            <p>Total Emergencies</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-info">
+            <h3 id="pendingCases">0</h3>
+            <p>Pending Cases</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <h3 id="solvedCases">0</h3>
+            <p>Solved Cases</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cases List -->
+<div class="cases-container">
+  <div id="loadingMessage" class="loading-message">
+    <div class="spinner"></div>
+    <p>Loading emergency cases...</p>
+  </div>
+
+  <div id="noCasesMessage" class="no-cases-message" style="display: none">
+    <div class="no-cases-icon">📋</div>
+    <h3>No Emergency Cases</h3>
+    <p id="noCasesText">No emergency requests received yet</p>
+  </div>
+
+  <div id="casesList" class="cases-list"></div>
+</div>
+
+<!-- Device Alerts Section (Realtime Database) -->
+<div id="deviceAlertsSection" class="cases-container" style="display: none;">
+  <h2>📡 Live Device Alerts</h2>
+
+  <div id="deviceAlertsLoading" class="loading-message">
+    <div class="spinner"></div>
+    <p>Fetching device alerts...</p>
+  </div>
+
+  <div id="noDeviceAlerts" class="no-cases-message" style="display: none">
+    <div class="no-cases-icon">📟</div>
+    <h3>No Device Alerts</h3>
+    <p>No IoT emergency alerts received yet</p>
+  </div>
+
+  <div id="deviceAlertsList" class="cases-list"></div>
+</div>
+
+
+    <!-- Case Details Modal -->
+    <div id="caseModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>🚨 Emergency Case Details</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Dynamic content will be inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="device-alerts.js"></script>
+  </body>
+</html>
